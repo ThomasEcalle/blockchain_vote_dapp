@@ -26,6 +26,9 @@ contract VoteContractInterface {
 
     address owner;
     bool hasVoteStarted = false;
+    // Dummy Date in order to give a "fake" vote ending
+    // Saturday 9 February 2019 13:26:17
+    uint voteEndTimestamp = 1549718777;
     mapping(address => Voter) voters;
     mapping(address => Proposal) proposals;
     address[] proposalsAddresses;
@@ -49,7 +52,7 @@ contract VoteContractInterface {
 
     // Accessible only if voter is enable to vote
     modifier mayVote(address voter) {
-        if (hasVoteStarted == false || voters[voter].voted || !voters[voter].canVote) return;
+        if (hasVoteStarted == false || voteEndTimestamp < now || voters[voter].voted || !voters[voter].canVote) return;
         _;
     }
 
@@ -86,12 +89,28 @@ contract VoteContractInterface {
     // Common methods
     /////////////////////////////////////////////
 
+    // This timeStamp is only on demo purpose, to show that nobody can vote after the ending date
+    // Must be remove for production because owner would be too powerful
+    function startVoteAndSetDate(uint timeStamp) onlyOwner public {
+        voteEndTimestamp = timeStamp;
+        hasVoteStarted = true;
+    }
+    // This function is the good one to keep on production
+    // It does not override already set Ending Date
     function startVote() onlyOwner public {
         hasVoteStarted = true;
     }
 
     function isVoteStarted() public view returns (bool) {
         return hasVoteStarted;
+    }
+
+    function isVoteEnded() public view returns (bool) {
+        return now > voteEndTimestamp;
+    }
+
+    function isOwner() public view returns (bool) {
+        return msg.sender == owner;
     }
 
     /////////////////////////////////////////////

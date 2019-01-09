@@ -65,7 +65,7 @@ contract("DeBordaVoteContract", accounts => {
         // Get actual winner
         const winnerDatasArray = await myVoteContract.winningProposal.call();
         const winnerName = winnerDatasArray[1];
-        assert.equal(winnerName, "candice", "The winner is note Candice");
+        assert.equal(winnerName, "candice", "The winner is not Candice");
     });
 
     it("Should not be able to vote twice", async () => {
