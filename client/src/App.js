@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import ReadString from "./ReadString";
-import SetString from "./SetString";
 import './App.css';
+import './styles.css';
+import Tabs from "./Tabs";
 
 class App extends Component {
 
@@ -11,7 +11,10 @@ class App extends Component {
         const {drizzle} = this.props;
 
         // subscribe to changes in the store
+        console.log("Suscribe");
         this.unsubscribe = drizzle.store.subscribe(() => {
+
+            console.log("Suscribed");
 
             // every time the store updates, grab the state from drizzle
             const drizzleState = drizzle.store.getState();
@@ -31,15 +34,22 @@ class App extends Component {
         if (this.state.loading) return "Loading Drizzle...";
         return (
             <div className="App">
-                <ReadString
-                    drizzle={this.props.drizzle}
-                    drizzleState={this.state.drizzleState}
-                />
-                <SetString
-                    drizzle={this.props.drizzle}
-                    drizzleState={this.state.drizzleState}
-                />
+                <p>Welcome to the election</p>
+                <input type="button" className="owner-input" value="Owner"/>
+                <Tabs>
+                    <div label="Start Election">
+
+                        See ya later, <em>Alligator</em>!
+                    </div>
+                    <div label="Procuration">
+                        After 'while, <em>Crocodile</em>!
+                    </div>
+                    <div label="Result">
+                        Nothing to see here, this tab is <em>extinct</em>!
+                    </div>
+                </Tabs>
             </div>
+
         );
     }
 }

@@ -1,4 +1,4 @@
-pragma solidity >=0.4.22 <0.6.0;
+pragma solidity >=0.5 <0.6.0;
 
 import "./VoteContractInterface.sol";
 
@@ -10,7 +10,7 @@ contract DeBordaVoteContract is VoteContractInterface {
         voters[owner].canVote = true;
     }
 
-    function candidateAsProposal(string name) mayBeCandidate public {
+    function candidateAsProposal(string memory name) mayBeCandidate public {
         proposalsAddresses.push(msg.sender);
         proposals[msg.sender].voteCount = 0;
         if (isEmptyString(name)) {
@@ -47,7 +47,7 @@ contract DeBordaVoteContract is VoteContractInterface {
     }
 
     // Vote for proposals
-    function vote(address[] proposalsInOrder) public mayVote(msg.sender) arePossibleProposals(proposalsInOrder) {
+    function vote(address[] memory proposalsInOrder) public mayVote(msg.sender) arePossibleProposals(proposalsInOrder) {
         Voter storage sender = voters[msg.sender];
         sender.voted = true;
         sender.vote = proposalsInOrder;
@@ -57,17 +57,17 @@ contract DeBordaVoteContract is VoteContractInterface {
     }
 
     // Retrieve data for one proposal $(proposalId)
-    function getProposalData(address proposalId) public view isOneOfPossibleProposal(proposalId) returns (address id, string name, uint voteCount) {
+    function getProposalData(address proposalId) public view isOneOfPossibleProposal(proposalId) returns (address id, string memory name, uint voteCount) {
         id = proposalId;
         name = proposals[proposalId].name;
         voteCount = proposals[proposalId].voteCount;
     }
 
-    function getProposals() public view returns (address[] proposals) {
+    function getProposals() public view returns (address[] memory proposals) {
         return proposalsAddresses;
     }
 
-    function winningProposal() public view returns (address winningProposalAddress, string winningProposalName, uint winningProposalVoteCount) {
+    function winningProposal() public view returns (address winningProposalAddress, string memory winningProposalName, uint winningProposalVoteCount) {
         uint256 winningVoteCount = 0;
         for (uint8 proposalIndex = 0; proposalIndex < proposalsAddresses.length; proposalIndex++) {
             address proposalAddress = proposalsAddresses[proposalIndex];

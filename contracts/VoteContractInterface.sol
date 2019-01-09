@@ -1,4 +1,4 @@
-pragma solidity >=0.4.22 <0.6.0;
+pragma solidity >=0.5 <0.6.0;
 
 
 contract VoteContractInterface {
@@ -64,7 +64,7 @@ contract VoteContractInterface {
     }
 
     // Accessible only if all the proposals are in array
-    modifier arePossibleProposals(address[] p) {
+    modifier arePossibleProposals(address[] memory p) {
         if (p.length != proposalsAddresses.length) return;
 
         for (uint8 i = 0; i < p.length; i++) {
@@ -117,14 +117,14 @@ contract VoteContractInterface {
     // Utils methods
     /////////////////////////////////////////////
 
-    function fromAddressToString(address x) pure public returns (string) {
+    function fromAddressToString(address x) pure public returns (string memory) {
         bytes memory b = new bytes(20);
         for (uint i = 0; i < 20; i++)
             b[i] = byte(uint8(uint(x) / (2 ** (8 * (19 - i)))));
         return string(b);
     }
 
-    function isEmptyString(string text) pure public returns (bool) {
+    function isEmptyString(string memory text) pure public returns (bool) {
         return bytes(text).length == 0;
     }
 }
