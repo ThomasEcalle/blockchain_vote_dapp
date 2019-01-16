@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import './App.css';
 import './styles.css';
 import Tabs from "./Tabs";
+import OwnerLabel from "./components/OwnerLabel";
+import NewElection from "./components/NewElection";
+import CurrentElection from "./components/CurrentElection";
 
 class App extends Component {
 
@@ -35,11 +38,22 @@ class App extends Component {
         return (
             <div className="App">
                 <p>Welcome to the election</p>
-                <input type="button" className="owner-input" value="Owner"/>
+                <OwnerLabel
+                    drizzle={this.props.drizzle}
+                    drizzleState={this.state.drizzleState}
+                />
                 <Tabs>
+                    <div label="Election en cours">
+                        <CurrentElection
+                            drizzle={this.props.drizzle}
+                            drizzleState={this.state.drizzleState}
+                        />
+                    </div>
                     <div label="Start Election">
-
-                        See ya later, <em>Alligator</em>!
+                        <NewElection
+                            drizzle={this.props.drizzle}
+                            drizzleState={this.state.drizzleState}
+                        />
                     </div>
                     <div label="Procuration">
                         After 'while, <em>Crocodile</em>!
