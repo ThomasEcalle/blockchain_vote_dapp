@@ -1,4 +1,7 @@
 import React from "react";
+import Proposal from "./Proposal";
+import styles from './styles.css';
+import NewElection from "./NewElection";
 
 class CurrentElection extends React.Component {
     state = {dataKey: null};
@@ -23,10 +26,11 @@ class CurrentElection extends React.Component {
 
         if (getProposals && getProposals.value.length > 0)
         {
-            const listItems = getProposals.value.map((d) => <input type="text" value={d[1]}/>);
+            const listItems = getProposals.value.map((d) =>
+                <Proposal id={d} drizzle={this.props.drizzle} drizzleState={this.props.drizzleState} />);
 
-            return (<div>
-                <p>Vous pouvez voter pour les personnes ci dessous</p>
+            return (<div className={styles.listContainer}>
+                <p className={styles.title}>Vous pouvez voter pour les personnes ci dessous</p>
                 {listItems}
             </div>)
         }

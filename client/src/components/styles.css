@@ -1,0 +1,14 @@
+.listItems {
+    flex-direction: row;
+    width: fit-content;
+}
+
+.listContainer {
+    display: inline-flex;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 20px;
+    color: pink;
+}

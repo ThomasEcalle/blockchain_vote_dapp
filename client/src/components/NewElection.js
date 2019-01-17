@@ -1,38 +1,50 @@
 import React from "react";
 
 class NewElection extends React.Component {
-    state = {dataKey: null};
+    state = {
+        dataKey: null,
+        input:  ''
+    };
 
-    componentDidMount() {
-        const {drizzle} = this.props;
+    handleChange = e => {
+        this.setState({ input: e.target.value });
+    };
+
+    handleClick = () => {
+        const {drizzle, drizzleState} = this.props;
         const contract = drizzle.contracts.DeBordaVoteContract;
 
-        // let drizzle know we want to watch the `myString` method
-        const dataKey = contract.methods["isOwner"].cacheCall();
+        // let drizzle know we want to call the `set` method with `value`
+        const stackId = contract.methods["candidateAsProposal"].cacheSend(this.state.input, {
+            from: drizzleState.accounts[0]
+        });
 
-        // save the `dataKey` to local component state for later reference
-        this.setState({dataKey});
-    }
+        // save the `stackId` for later reference
+        this.setState({stackId});
+    };
+
+    getTxStatus = () => {
+        // get the transaction states from the drizzle state
+        const {transactions, transactionStack} = this.props.drizzleState;
+
+        // get the transaction hash using our saved `stackId`
+        const txHash = transactionStack[this.state.stackId];
+
+        // if transaction hash does not exist, don't display anything
+        if (!txHash) return null;
+
+        // otherwise, return the transaction status
+        return `Transaction status: ${transactions[txHash].status}`;
+    };
 
     render() {
-        // get the contract state from drizzleState
-        const {DeBordaVoteContract} = this.props.drizzleState.contracts;
-
-        // using the saved `dataKey`, get the variable we're interested in
-        const isOwner = DeBordaVoteContract.isOwner[this.state.dataKey];
-
-        // if it exists, then we display its value
-        if (isOwner && isOwner.value) {
-            return <input type="button" className="owner-input" value="Start Election"/>;
-        }
-        else {
-        }
-
        return (<div>
            <p>Entrez votre nom pour vous inscrire à l'élection</p>
-            <input type="text" className="edit-text"/>
-            <input type="button" className="edit-text" value="Se présenter"/>
-        </div>)
+            <input type="text" className="edit-text" onChange={ this.handleChange }/>
+            <input type="button" className="edit-text" value="Se présenter" onClick={this.handleClick}/>
+           <div>{this.getTxStatus()}</div>
+
+       </div>)
     }
 }
 

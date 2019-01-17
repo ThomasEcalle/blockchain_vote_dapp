@@ -5,6 +5,7 @@ import Tabs from "./Tabs";
 import OwnerLabel from "./components/OwnerLabel";
 import NewElection from "./components/NewElection";
 import CurrentElection from "./components/CurrentElection";
+import Procuration from "./components/Procuration";
 
 class App extends Component {
 
@@ -56,7 +57,7 @@ class App extends Component {
                         />
                     </div>
                     <div label="Procuration">
-                        After 'while, <em>Crocodile</em>!
+                       <Procuration />
                     </div>
                     <div label="Result">
                         Nothing to see here, this tab is <em>extinct</em>!
