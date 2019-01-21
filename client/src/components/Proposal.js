@@ -1,5 +1,4 @@
 import React from "react";
-import styles from './styles.css';
 
 class Proposal extends React.Component {
     state = {dataKey: null};
@@ -24,14 +23,14 @@ class Proposal extends React.Component {
 
         if (getProposalData == null )
         {
-         return(<p className={styles.title}>Loading</p>);
+         return(<p className="tab-title">Loading</p>);
         }
         else
         {
             const value = getProposalData.value;
             return (
-                <div>
-                    <p className={styles.title}>{value[1]}</p>
+                <div onClick={() => this.props.onClick(value)}>
+                    <p className="p-status">{value[1]}</p>
                 </div>)
 
         }

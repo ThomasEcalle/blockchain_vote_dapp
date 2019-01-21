@@ -1,16 +1,12 @@
 import React, {Component} from 'react';
 import './App.css';
 import './styles.css';
-import Tabs from "./Tabs";
 import OwnerLabel from "./components/OwnerLabel";
-import NewElection from "./components/NewElection";
-import CurrentElection from "./components/CurrentElection";
-import Procuration from "./components/Procuration";
+import SwitchTabs from "./components/SwitchTabs";
 
 class App extends Component {
 
     state = {loading: true, drizzleState: null};
-
     componentDidMount() {
         const {drizzle} = this.props;
 
@@ -38,31 +34,15 @@ class App extends Component {
         if (this.state.loading) return "Loading Drizzle...";
         return (
             <div className="App">
-                <p>Welcome to the election</p>
+                <p className="tab-title">Welcome to the election</p>
                 <OwnerLabel
                     drizzle={this.props.drizzle}
                     drizzleState={this.state.drizzleState}
                 />
-                <Tabs>
-                    <div label="Election en cours">
-                        <CurrentElection
-                            drizzle={this.props.drizzle}
-                            drizzleState={this.state.drizzleState}
-                        />
-                    </div>
-                    <div label="Start Election">
-                        <NewElection
-                            drizzle={this.props.drizzle}
-                            drizzleState={this.state.drizzleState}
-                        />
-                    </div>
-                    <div label="Procuration">
-                       <Procuration />
-                    </div>
-                    <div label="Result">
-                        Nothing to see here, this tab is <em>extinct</em>!
-                    </div>
-                </Tabs>
+                <SwitchTabs
+                    drizzle={this.props.drizzle}
+                    drizzleState={this.state.drizzleState}
+                />
             </div>
 
         );

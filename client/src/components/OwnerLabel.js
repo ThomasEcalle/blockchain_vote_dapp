@@ -23,7 +23,7 @@ class OwnerLabel extends React.Component {
 
         // if it exists, then we display its value
         if (isOwner && isOwner.value) {
-            return <input type="button" className="owner-input" value="Owner"/>;
+            return <label className="owner-input" >Owner</label>;
 
         }
         else {

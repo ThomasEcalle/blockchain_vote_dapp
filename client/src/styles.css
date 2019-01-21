@@ -8,22 +8,39 @@
     list-style: none;
     margin-bottom: -1px;
     padding: 0.5rem 0.75rem;
+    color: blanchedalmond;
+
 }
 
 .tab-list-active {
     background-color: white;
     border: solid #ccc;
     border-width: 1px 1px 0 1px;
+    border-radius: 6px 6px 0 0;
+    color: chocolate;
 }
 
 .owner-input {
     background-color: red;
     float: right;
     border-radius: 5px;
-    font-family: inherit;
-    font-weight: 600;
+    font-family: "American Typewriter";
+    font-weight: bolder;
     user-select: none;
-    padding: 10px;
-    margin-right: 50px;
+    margin: 0px 10px 0px 0px;
+    padding: 3px;
     color: white;
+    font-size: 14px;
+}
+
+.App {
+    background-color: #282c34;
+    width: 700px;
+    height: 500px;
+    border-radius: 15px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
 }

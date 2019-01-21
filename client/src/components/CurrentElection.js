@@ -1,11 +1,23 @@
 import React from "react";
 import Proposal from "./Proposal";
-import styles from './styles.css';
-import NewElection from "./NewElection";
+import './styles.css';
+import ChooseContainer from "./ChooseContainer";
 
 class CurrentElection extends React.Component {
     state = {dataKey: null};
+    Vote = (address) => {
+        const {drizzle, drizzleState} = this.props;
+        const contract = drizzle.contracts.DeBordaVoteContract;
 
+
+        // let drizzle know we want to call the `set` method with `value`
+        const stackId = contract.methods["vote"].cacheSend([], {
+            from: drizzleState.accounts[0]
+        });
+
+        // save the `stackId` for later reference
+        this.setState({stackId});
+    };
     componentDidMount() {
         const {drizzle} = this.props;
         const contract = drizzle.contracts.DeBordaVoteContract;
@@ -28,16 +40,18 @@ class CurrentElection extends React.Component {
         {
             const listItems = getProposals.value.map((d) =>
                 <Proposal id={d} drizzle={this.props.drizzle} drizzleState={this.props.drizzleState} />);
-
-            return (<div className={styles.listContainer}>
-                <p className={styles.title}>Vous pouvez voter pour les personnes ci dessous</p>
-                {listItems}
+            return (<div className="listContainer">
+                <p className="tab-title">Pour voter, déplacer les noms suivant votre classement, puis cliquez sur voter</p>
+                <ChooseContainer drizzle={this.props.drizzle}
+                                 drizzleState={this.props.drizzleState}
+                                 items={getProposals.value}/>
+                <input type="button" className="edit-button" value="Voter" onClick={() => this.Vote()}/>
             </div>)
         }
         else
         {
             return (
-                <div><p>Aucun candidat</p></div>)
+                <div><p className="tab-title">Aucun candidat</p></div>)
         }
 
     }

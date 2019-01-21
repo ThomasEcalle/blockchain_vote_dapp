@@ -1,14 +1,36 @@
 .listItems {
-    flex-direction: row;
+    flex-direction: column;
     width: fit-content;
 }
 
 .listContainer {
-    display: inline-flex;
+    display: block;
 }
 
-.title {
+.tab-title {
     font-weight: bold;
     font-size: 20px;
-    color: pink;
+    color: orangered;
+}
+
+.p-status {
+    color: blanchedalmond;
+    font-weight: bold;
+}
+.edit-text {
+    height: 20px;
+    border-radius: 3px;
+    margin: 10px;
+}
+
+.edit-button {
+    border-radius: 4px;
+    padding: 8px;
+    background-color: chocolate;
+    color: black;
+    font-weight: bold;
+}
+
+.listProposals {
+    background-color: blanchedalmond;
 }

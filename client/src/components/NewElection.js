@@ -14,6 +14,7 @@ class NewElection extends React.Component {
         const {drizzle, drizzleState} = this.props;
         const contract = drizzle.contracts.DeBordaVoteContract;
 
+
         // let drizzle know we want to call the `set` method with `value`
         const stackId = contract.methods["candidateAsProposal"].cacheSend(this.state.input, {
             from: drizzleState.accounts[0]
@@ -39,10 +40,10 @@ class NewElection extends React.Component {
 
     render() {
        return (<div>
-           <p>Entrez votre nom pour vous inscrire à l'élection</p>
+           <p className="tab-title">Entrez votre nom pour vous inscrire à l'élection</p>
             <input type="text" className="edit-text" onChange={ this.handleChange }/>
-            <input type="button" className="edit-text" value="Se présenter" onClick={this.handleClick}/>
-           <div>{this.getTxStatus()}</div>
+            <input type="button" className="edit-button" value="Se présenter" onClick={() => this.handleClick()}/>
+           <div className="status"><p className="p-status">{this.getTxStatus()}</p></div>
 
        </div>)
     }
