@@ -92,7 +92,7 @@ class CurrentElection extends React.Component {
         }
         else {
             return (
-                <div><p className="tab-title">L'éléction n'a pas encore commencé !</p></div>)
+                <div><p className="tab-title">L'élection n'a pas encore commencé !</p></div>)
         }
 
     }

@@ -46,7 +46,7 @@ class ElectionResult extends React.Component {
 
         if (list.length !== results.length) return (<div><p>Loading</p></div>);
         return (
-            <div className="listSelector">
+            <div className="resultsContainer">
                 {
                     results.map((proposal, index) =>
                         <div

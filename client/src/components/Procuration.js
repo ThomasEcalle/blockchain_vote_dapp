@@ -65,7 +65,7 @@ class Procuration extends React.Component {
         }
         else if (isUserAbleToVote && isUserAbleToVote.value == false) {
             return (<div>
-                <p className="tab-title">Vous ne pouvez pas donner de procuration</p></div>)
+                <p className="tab-title">Vous ne pouvez pas donner de procuration pour le moment</p></div>)
         }
         return (<div>
             <p className="tab-title">Entrer la clé pour donner son vote à la personne correspondante</p>
