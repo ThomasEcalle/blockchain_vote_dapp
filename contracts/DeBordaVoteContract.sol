@@ -66,17 +66,4 @@ contract DeBordaVoteContract is VoteContractInterface {
     function getProposals() public view returns (address[] memory proposals) {
         return proposalsAddresses;
     }
-
-    function winningProposal() public view returns (address winningProposalAddress, string memory winningProposalName, uint winningProposalVoteCount) {
-        uint256 winningVoteCount = 0;
-        for (uint8 proposalIndex = 0; proposalIndex < proposalsAddresses.length; proposalIndex++) {
-            address proposalAddress = proposalsAddresses[proposalIndex];
-            if (proposals[proposalAddress].voteCount > winningVoteCount) {
-                winningVoteCount = proposals[proposalAddress].voteCount;
-                winningProposalAddress = proposalAddress;
-                winningProposalName = proposals[proposalAddress].name;
-                winningProposalVoteCount = winningVoteCount;
-            }
-        }
-    }
 }

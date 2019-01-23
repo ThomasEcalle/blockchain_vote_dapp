@@ -62,10 +62,9 @@ contract("DeBordaVoteContract", accounts => {
         // Vote for proposal candice, tim and thomas in order
         await myVoteContract.vote([candice, timothee, thomas], {from: owner});
 
-        // Get actual winner
-        const winnerDatasArray = await myVoteContract.winningProposal.call();
-        const winnerName = winnerDatasArray[1];
-        assert.equal(winnerName, "candice", "The winner is not Candice");
+        const candiceDatas = await myVoteContract.getProposalData.call(candice);
+        const candiceVoteCount = candiceDatas[2];
+        assert.equal(candiceVoteCount, 3, "The winner is not Candice");
     });
 
     it("Should not be able to vote twice", async () => {
@@ -75,9 +74,9 @@ contract("DeBordaVoteContract", accounts => {
         await myVoteContract.vote([candice, timothee, thomas], {from: owner});
 
         // Get actual winner
-        const winnerDatasArray = await myVoteContract.winningProposal.call();
-        const winnerVoteCount = winnerDatasArray[2];
-        assert.equal(winnerVoteCount, 3, "Should only count 1 vote");
+        const candiceDatas = await myVoteContract.getProposalData.call(candice);
+        const candiceVoteCount = candiceDatas[2];
+        assert.equal(candiceVoteCount, 3, "The winner is not Candice");
     });
 
     it("Should not have the rights to vote", async () => {
@@ -103,9 +102,9 @@ contract("DeBordaVoteContract", accounts => {
         // thomas  may now vote for proposals
         await myVoteContract.vote([candice, timothee, thomas], {from: thomas});
 
-        const winnerInfosArray = await myVoteContract.winningProposal.call();
-        const winnerVoteCount = winnerInfosArray[2];
-        assert.equal(winnerVoteCount, 6, "Should have the vote of Candice");
+        const candiceDatas = await myVoteContract.getProposalData.call(candice);
+        const candiceVoteCount = candiceDatas[2];
+        assert.equal(candiceVoteCount, 6, "Should have the vote of thomas");
     });
 
     it("Should not be able to vote for same person", async () => {
@@ -114,9 +113,9 @@ contract("DeBordaVoteContract", accounts => {
         // candice try to vote twice for her
         await myVoteContract.vote([candice, candice, thomas], {from: candice});
 
-        const winnerInfosArray = await myVoteContract.winningProposal.call();
-        const winnerVoteCount = winnerInfosArray[2];
-        assert.equal(winnerVoteCount, 6, "The vote should not pass");
+        const candiceDatas = await myVoteContract.getProposalData.call(candice);
+        const candiceVoteCount = candiceDatas[2];
+        assert.equal(candiceVoteCount, 6, "Should not be able to vote twice");
     });
 
     it("Should be able to give procuration", async () => {
@@ -125,9 +124,9 @@ contract("DeBordaVoteContract", accounts => {
         // candice give a procuration to thomas
         await myVoteContract.delegate(thomas, {from: candice});
 
-        const winnerInfosArray = await myVoteContract.winningProposal.call();
-        const winnerVoteCount = winnerInfosArray[2];
-        assert.equal(winnerVoteCount, 9, "Candice proposal should have the votes from thomas");
+        const candiceDatas = await myVoteContract.getProposalData.call(candice);
+        const candiceVoteCount = candiceDatas[2];
+        assert.equal(candiceVoteCount, 9, "Candice proposal should have the votes from thomas");
     });
 
 
