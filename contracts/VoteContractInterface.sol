@@ -107,7 +107,7 @@ contract VoteContractInterface {
         return hasVoteStarted;
     }
 
-    function isVoteEnded()  public view returns (bool) {
+    function isVoteEnded() public view returns (bool) {
         return now > voteEndTimestamp;
     }
 
@@ -131,6 +131,7 @@ contract VoteContractInterface {
     // Utils methods
     /////////////////////////////////////////////
 
+    // Getting address in String format in case of a proposal without name
     function fromAddressToString(address x) pure public returns (string memory) {
         bytes memory b = new bytes(20);
         for (uint i = 0; i < 20; i++)
@@ -138,6 +139,7 @@ contract VoteContractInterface {
         return string(b);
     }
 
+    // Solidity way to know if a String is empty
     function isEmptyString(string memory text) pure public returns (bool) {
         return bytes(text).length == 0;
     }

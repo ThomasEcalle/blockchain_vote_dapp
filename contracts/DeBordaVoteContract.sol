@@ -4,12 +4,15 @@ import "./VoteContractInterface.sol";
 
 contract DeBordaVoteContract is VoteContractInterface {
 
+    // Just setting owner and giving him vote rights
     constructor() public {
         owner = msg.sender;
         voters[owner].weight = 1;
         voters[owner].canVote = true;
     }
 
+    // Propose itself as proposal
+    // $(name) may be empty but would be replace by address
     function candidateAsProposal(string memory name) mayBeCandidate public {
         proposalsAddresses.push(msg.sender);
         proposals[msg.sender].voteCount = 0;
@@ -63,6 +66,7 @@ contract DeBordaVoteContract is VoteContractInterface {
         voteCount = proposals[proposalId].voteCount;
     }
 
+    // Return all proposals address
     function getProposals() public view returns (address[] memory proposals) {
         return proposalsAddresses;
     }
