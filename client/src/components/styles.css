@@ -3,8 +3,31 @@
     width: fit-content;
 }
 
-.listContainer {
-    display: block;
+.containerListSelector {
+    display: flex;
+    flex-direction: row;
+    margin-left: 40%;
+}
+.listSelectorProposals {
+    margin: 10px;
+    width: 15%;
+    background-color: white;
+    height: 200px;
+    overflow: scroll;
+}
+
+
+.listSelector {
+    display: flex;
+    flex-direction: column;
+
+}
+
+.p-selector {
+    background-color: blanchedalmond;
+    color: chocolate;
+    padding: 5px;
+    border: 1px solid chocolate;
 }
 
 .tab-title {
@@ -29,6 +52,7 @@
     background-color: chocolate;
     color: black;
     font-weight: bold;
+
 }
 
 .listProposals {

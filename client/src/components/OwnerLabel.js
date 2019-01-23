@@ -27,7 +27,7 @@ class OwnerLabel extends React.Component {
 
         }
         else {
-            return <p>T PA OWNER</p>
+            return <p></p>
         }
 
     }
