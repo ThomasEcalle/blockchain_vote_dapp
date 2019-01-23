@@ -93,14 +93,12 @@ contract VoteContractInterface {
     // Common methods
     /////////////////////////////////////////////
 
-    // This timeStamp is only on demo purpose, to show that nobody can vote after the ending date
-    // Must be remove for production because owner would be too powerful
-    function startVoteAndSetDate(uint timeStamp) onlyOwner public {
-        voteEndTimestamp = timeStamp;
-        hasVoteStarted = true;
+    // Must be remove for production because owner would be so powerful
+    function stopVote() onlyOwner public {
+        voteEndTimestamp = 0;
+        hasVoteStarted = false;
     }
-    // This function is the good one to keep on production
-    // It does not override already set Ending Date
+    // Sart vote
     function startVote() onlyOwner public {
         hasVoteStarted = true;
     }
@@ -109,12 +107,24 @@ contract VoteContractInterface {
         return hasVoteStarted;
     }
 
-    function isVoteEnded() public view returns (bool) {
+    function isVoteEnded()  public view returns (bool) {
         return now > voteEndTimestamp;
     }
 
     function isOwner() public view returns (bool) {
         return msg.sender == owner;
+    }
+
+    function hasUserVotedYet() public view returns (bool) {
+        return voters[msg.sender].voted;
+    }
+
+    function isUserProposalYet() public view returns (bool) {
+        return !isEmptyString(proposals[msg.sender].name);
+    }
+
+    function isUserAbleToVote() public view returns (bool) {
+        return voters[msg.sender].canVote && voters[msg.sender].voted == false;
     }
 
     /////////////////////////////////////////////

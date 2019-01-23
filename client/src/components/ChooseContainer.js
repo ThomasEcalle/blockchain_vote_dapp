@@ -28,15 +28,16 @@ class ChooseContainer extends React.Component {
     }
 
     vote(proposalChoices) {
+
+        console.log(`Clicked on vote ! proposalChoices = ${JSON.stringify(proposalChoices)}`);
         const {drizzle, drizzleState} = this.props;
         const contract = drizzle.contracts.DeBordaVoteContract;
 
 
         // let drizzle know we want to call the `set` method with `value`
-        const stackId = contract.methods["vote"].cacheSend([], {
+        const stackId = contract.methods["vote"].cacheSend(proposalChoices, {
             from: drizzleState.accounts[0]
         });
-
         // save the `stackId` for later reference
         this.setState({stackId});
     };
@@ -56,27 +57,36 @@ class ChooseContainer extends React.Component {
     };
 
     render() {
-        console.log(`Choose container rendering : ${JSON.stringify(this.state)}`);
+        //console.log(`Choose container rendering : ${JSON.stringify(this.state)}`);
         return (
             <div>
                 <div className="containerListSelector">
                     <div className="listSelectorProposals">
-                        <ListSelector drizzle={this.props.drizzle}
-                                      drizzleState={this.props.drizzleState}
-                                      list={this.state.proposals}
-                                      onProposalClicked={(id) => this.putInChoices(id)}/>
+                        <ListSelector
+                            drizzle={this.props.drizzle}
+                            drizzleState={this.props.drizzleState}
+                            list={this.state.proposals}
+                            onProposalClicked={(id) => this.putInChoices(id)}
+                        />
                     </div>
                     <div className="listSelectorProposals">
-                        <ListSelector drizzle={this.props.drizzle}
-                                      drizzleState={this.props.drizzleState}
-                                      list={this.state.proposalChoice}
-                                      onProposalClicked={(id) => this.putOutChoices(id)}/>
+                        <ListSelector
+                            drizzle={this.props.drizzle}
+                            drizzleState={this.props.drizzleState}
+                            list={this.state.proposalChoice}
+                            onProposalClicked={(id) => this.putOutChoices(id)}
+                        />
                     </div>
                 </div>
-
-                <input type="button" className="edit-button" value="Voter"
-                       onClick={() => this.vote(this.state.proposalChoice)}/>
-                <div className="status"><p className="p-status">{this.getTxStatus()}</p></div>
+                <input
+                    type="button"
+                    className="edit-button"
+                    value="Voter"
+                    hidden={this.state.proposals.length !== 0}
+                    onClick={() => this.vote(this.state.proposalChoice)}/>
+                <div className="status">
+                    <p className="p-status">{this.getTxStatus()}</p>
+                </div>
 
             </div>
 

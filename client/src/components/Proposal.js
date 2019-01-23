@@ -15,6 +15,12 @@ class Proposal extends React.Component {
         this.setState({dataKey});
     }
 
+    onClick = (proposal) => {
+        if (this.props.onClick) {
+            this.props.onClick(proposal["id"])
+        }
+    };
+
     render() {
         const {DeBordaVoteContract} = this.props.drizzleState.contracts;
         const {showVoteCount} = this.props;
@@ -28,7 +34,7 @@ class Proposal extends React.Component {
         else {
             const proposal = getProposalData.value;
             return (
-                <div onClick={() => this.props.onClick(proposal["id"])}>
+                <div onClick={() => this.onClick(proposal)}>
                     <p className="p-selector">{proposal["name"]}</p>
                     {
                         showVoteCount && <p>Nombre de points : {proposal["voteCount"]}</p>

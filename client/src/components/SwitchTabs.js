@@ -1,6 +1,6 @@
 import React from "react";
 import CurrentElection from "./CurrentElection";
-import NewElection from "./NewElection";
+import Candidatures from "./Candidatures";
 import Procuration from "./Procuration";
 import Tabs from "../Tabs";
 import OwnerSection from "./OwnerSection";
@@ -37,7 +37,7 @@ class SwitchTabs extends React.Component {
                         />
                     </div>
                     <div label="Candidatures">
-                        <NewElection
+                        <Candidatures
                             drizzle={this.props.drizzle}
                             drizzleState={this.props.drizzleState}
                         />
@@ -66,7 +66,7 @@ class SwitchTabs extends React.Component {
                     />
                 </div>
                 <div label="Candidatures">
-                    <NewElection
+                    <Candidatures
                         drizzle={this.props.drizzle}
                         drizzleState={this.props.drizzleState}
                     />

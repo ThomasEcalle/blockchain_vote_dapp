@@ -12,12 +12,15 @@ class ListSelector extends React.Component {
     render() {
         const {list} = this.props;
         return (<div className="listSelector">
-                {list.map(id => <Proposal id={id}
-                                          drizzle={this.props.drizzle}
-                                          drizzleState={this.props.drizzleState}
-                                          className="listProposals"
-                                          key={id}
-                                          onClick={(id) => this.onItemClicked(id)}/>)}
+                {list.map(id =>
+                    <Proposal id={id}
+                              drizzle={this.props.drizzle}
+                              drizzleState={this.props.drizzleState}
+                              showVoteCount={true}
+                              className="listProposals"
+                              key={id}
+                              onClick={(id) => this.onItemClicked(id)}/>)
+                }
             </div>
         );
     }

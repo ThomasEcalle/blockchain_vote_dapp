@@ -7,19 +7,14 @@ import SwitchTabs from "./components/SwitchTabs";
 class App extends Component {
 
     state = {loading: true, drizzleState: null};
+
     componentDidMount() {
         const {drizzle} = this.props;
 
-        // subscribe to changes in the store
-        console.log("Suscribe");
         this.unsubscribe = drizzle.store.subscribe(() => {
 
-            console.log("Suscribed");
-
-            // every time the store updates, grab the state from drizzle
             const drizzleState = drizzle.store.getState();
 
-            // check to see if it's ready, if so, update local component state
             if (drizzleState.drizzleStatus.initialized) {
                 this.setState({loading: false, drizzleState});
             }
@@ -34,7 +29,7 @@ class App extends Component {
         if (this.state.loading) return "Loading Drizzle...";
         return (
             <div className="App">
-                <p className="tab-title">Welcome to the election</p>
+                <p className="tab-title">Bienvenue à l'élection !</p>
                 <OwnerLabel
                     drizzle={this.props.drizzle}
                     drizzleState={this.state.drizzleState}

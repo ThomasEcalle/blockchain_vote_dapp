@@ -1,40 +1,67 @@
 import React from "react";
 
 class ElectionResult extends React.Component {
-    state = {dataKey: null};
+    state = {
+        keys: []
+    };
 
     componentDidMount() {
-        const {drizzle, id, drizzleState} = this.props;
+        const {drizzle, list, drizzleState} = this.props;
         const contract = drizzle.contracts.DeBordaVoteContract;
+        const keys = [];
+        list.forEach((proposalId) => {
+            console.log(`yo ${proposalId}`);
+            const proposalDataKey = contract.methods["getProposalData"].cacheCall(proposalId, {from: drizzleState.accounts[0]});
 
-        // let drizzle know we want to watch the `myString` method
-        const dataKey = contract.methods["winningProposal"].cacheCall();
+            keys.push(proposalDataKey);
+        });
 
-        // save the `dataKey` to local component state for later reference
-        this.setState({dataKey});
+        this.setState({keys});
+
     }
 
+    getProposalsDatas = (keys, debordaVoteContact) => {
+        const result = [];
+        keys.forEach((key) => {
+            const proposal = debordaVoteContact.getProposalData[key];
+            if (proposal && proposal.value) {
+                result.push(proposal.value);
+            }
+        });
+
+        return result;
+    };
+
+
     render() {
-        // get the contract state from drizzleState
+        const {list} = this.props;
+        const {keys} = this.state;
         const {DeBordaVoteContract} = this.props.drizzleState.contracts;
 
-        // using the saved `dataKey`, get the variable we're interested in
-        const winningProposal = DeBordaVoteContract.winningProposal[this.state.dataKey];
+        const results = this.getProposalsDatas(keys, DeBordaVoteContract);
 
-        if (winningProposal == null) {
-            return (<p className="tab-title">L'élection n'est pas terminée</p>);
-        }
-        else {
-            const value = winningProposal.value;
-            return (
-                <div>
-                    <p className="p-status">{value[1]}</p>
-                    <input type="button" className="edit-button" value="Voter" onClick={() => this.Vote(value[0])}/>
+        results.sort(function (first, second) {
+            return second["voteCount"] - first["voteCount"];
+        });
 
-                </div>)
-
-        }
-
+        if (list.length !== results.length) return (<div><p>Loading</p></div>);
+        return (
+            <div className="listSelector">
+                {
+                    results.map((proposal, index) =>
+                        <div
+                            className={index === 0 ? "winnerCard" : "card"}
+                            key={proposal["id"]}
+                        >
+                            <div className={"cardContainer"}>
+                                <p className={"cardName"}>{proposal["name"]}</p>
+                                <p>Avec un nombre de vote de : {proposal["voteCount"]}</p>
+                            </div>
+                        </div>
+                    )
+                }
+            </div>
+        );
     }
 }
 
