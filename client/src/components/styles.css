@@ -8,6 +8,7 @@
     flex-direction: row;
     margin-left: 40%;
 }
+
 .listSelectorProposals {
     margin: 10px;
     width: 15%;
@@ -15,7 +16,6 @@
     height: 200px;
     overflow: scroll;
 }
-
 
 .listSelector {
     display: flex;
@@ -40,6 +40,7 @@
     color: blanchedalmond;
     font-weight: bold;
 }
+
 .edit-text {
     height: 20px;
     border-radius: 3px;

@@ -1,8 +1,8 @@
 import React from "react";
-import styles from './styles.css';
 
 class ElectionResult extends React.Component {
     state = {dataKey: null};
+
     componentDidMount() {
         const {drizzle, id, drizzleState} = this.props;
         const contract = drizzle.contracts.DeBordaVoteContract;
@@ -21,12 +21,10 @@ class ElectionResult extends React.Component {
         // using the saved `dataKey`, get the variable we're interested in
         const winningProposal = DeBordaVoteContract.winningProposal[this.state.dataKey];
 
-        if (winningProposal == null )
-        {
-            return(<p className="tab-title">L'élection n'est pas terminée</p>);
+        if (winningProposal == null) {
+            return (<p className="tab-title">L'élection n'est pas terminée</p>);
         }
-        else
-        {
+        else {
             const value = winningProposal.value;
             return (
                 <div>

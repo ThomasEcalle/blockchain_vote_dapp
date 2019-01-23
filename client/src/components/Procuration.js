@@ -3,11 +3,11 @@ import React from "react";
 class Procuration extends React.Component {
     state = {
         dataKey: null,
-        input:  ''
+        input: ''
     };
 
     handleChange = e => {
-        this.setState({ input: e.target.value });
+        this.setState({input: e.target.value});
     };
 
     handleClick = () => {
@@ -40,10 +40,10 @@ class Procuration extends React.Component {
 
     render() {
         return (<div>
-            <p className="tab-title">Entrer la clé pour donner son vote</p>
-            <input type="text" className="edit-text" onChange={ this.handleChange }/>
+            <p className="tab-title">Entrer la clé pour donner son vote à la personne correspondante</p>
+            <input type="text" className="edit-text" onChange={this.handleChange}/>
             <input type="button" className="edit-button" value="Donner son vote" onClick={this.handleClick}/>
-            <div className="status"><p className="p-status">{this.getTxStatus()}</p></div>
+            <div className="status"><p clasName="p-status">{this.getTxStatus()}</p></div>
 
         </div>)
     }

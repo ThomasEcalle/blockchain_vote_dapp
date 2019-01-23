@@ -2,9 +2,8 @@ import React from "react";
 import CurrentElection from "./CurrentElection";
 import NewElection from "./NewElection";
 import Procuration from "./Procuration";
-import ElectionResult from "./ElectionResult";
 import Tabs from "../Tabs";
-import GiveRightToVote from "./GiveRightToVote";
+import OwnerSection from "./OwnerSection";
 
 class SwitchTabs extends React.Component {
     state = {dataKey: null};
@@ -29,32 +28,33 @@ class SwitchTabs extends React.Component {
 
         // if it exists, then we display its value
         if (isOwner && isOwner.value) {
-            return (<Tabs>
-                <div label="Election en cours">
-                    <CurrentElection
-                        drizzle={this.props.drizzle}
-                        drizzleState={this.props.drizzleState}
-                    />
-                </div>
-                <div label="Candidatures">
-                    <NewElection
-                        drizzle={this.props.drizzle}
-                        drizzleState={this.props.drizzleState}
-                    />
-                </div>
-                <div label="Procuration">
-                    <Procuration
-                        drizzle={this.props.drizzle}
-                        drizzleState={this.props.drizzleState}
-                    />
-                </div>
-                <div label="GiveVote">
-                    <GiveRightToVote
-                        drizzle={this.props.drizzle}
-                        drizzleState={this.props.drizzleState}
-                    />
-                </div>
-            </Tabs>)
+            return (
+                <Tabs>
+                    <div label="Election en cours">
+                        <CurrentElection
+                            drizzle={this.props.drizzle}
+                            drizzleState={this.props.drizzleState}
+                        />
+                    </div>
+                    <div label="Candidatures">
+                        <NewElection
+                            drizzle={this.props.drizzle}
+                            drizzleState={this.props.drizzleState}
+                        />
+                    </div>
+                    <div label="Procuration">
+                        <Procuration
+                            drizzle={this.props.drizzle}
+                            drizzleState={this.props.drizzleState}
+                        />
+                    </div>
+                    <div label="Section Admin">
+                        <OwnerSection
+                            drizzle={this.props.drizzle}
+                            drizzleState={this.props.drizzleState}
+                        />
+                    </div>
+                </Tabs>)
 
         }
         else {

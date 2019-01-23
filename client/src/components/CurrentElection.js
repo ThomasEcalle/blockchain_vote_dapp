@@ -5,28 +5,28 @@ import ChooseContainer from "./ChooseContainer";
 class CurrentElection extends React.Component {
     state = {
         getproposalsDataKey: null,
-        isvoteStartedDataKey: null,
-        isvoteEndedDataKey: null,
+        isVoteStartedDataKey: null,
+        isVoteEndedDataKey: null,
     };
 
     componentDidMount() {
         const {drizzle} = this.props;
         const contract = drizzle.contracts.DeBordaVoteContract;
 
-        const isvoteStartedDataKey = contract.methods["isVoteStarted"].cacheCall();
-        const isvoteEndedDataKey = contract.methods["isVoteEnded"].cacheCall();
+        const isVoteStartedDataKey = contract.methods["isVoteStarted"].cacheCall();
+        const isVoteEndedDataKey = contract.methods["isVoteEnded"].cacheCall();
         const getproposalsDataKey = contract.methods["getProposals"].cacheCall();
 
 
-        this.setState({getproposalsDataKey, isvoteStartedDataKey, isvoteEndedDataKey});
+        this.setState({getproposalsDataKey, isVoteStartedDataKey, isVoteEndedDataKey});
     }
 
 
     render() {
         const {DeBordaVoteContract} = this.props.drizzleState.contracts;
 
-        const isVoteStarted = DeBordaVoteContract.isVoteStarted[this.state.isvoteStartedDataKey];
-        const isVoteEnded = DeBordaVoteContract.isVoteEnded[this.state.isvoteEndedDataKey];
+        const isVoteStarted = DeBordaVoteContract.isVoteStarted[this.state.isVoteStartedDataKey];
+        const isVoteEnded = DeBordaVoteContract.isVoteEnded[this.state.isVoteEndedDataKey];
 
         if (isVoteStarted && isVoteStarted.value) {
             const getProposals = DeBordaVoteContract.getProposals[this.state.getproposalsDataKey];
@@ -49,7 +49,7 @@ class CurrentElection extends React.Component {
             }
         }
         else if (isVoteEnded && isVoteEnded.value) {
-            return(<div><p className="tab-title">Vote fini ! voici le résultat</p></div>)
+            return (<div><p className="tab-title">Vote fini ! voici le résultat</p></div>)
         }
         else {
             return (

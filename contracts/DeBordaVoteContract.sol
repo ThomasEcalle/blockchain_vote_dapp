@@ -32,13 +32,13 @@ contract DeBordaVoteContract is VoteContractInterface {
 
         while (voters[to].delegate != address(0) && voters[to].delegate != msg.sender)
             to = voters[to].delegate;
-        if (to == msg.sender || voters[to].canVote == false) return;
+        if (to == msg.sender) return;
         sender.voted = true;
         sender.delegate = to;
         Voter storage delegateTo = voters[to];
         if (delegateTo.voted) {
             for (uint8 i = 0; i < delegateTo.vote.length; i++) {
-                proposals[delegateTo.vote[i]].voteCount += (proposalsAddresses.length - i) * sender.weight;
+                proposals[delegateTo.vote[i]].voteCount += (delegateTo.vote.length - i) * sender.weight;
             }
         }
         else {

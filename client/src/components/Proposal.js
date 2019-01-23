@@ -16,22 +16,23 @@ class Proposal extends React.Component {
     }
 
     render() {
-        // get the contract state from drizzleState
         const {DeBordaVoteContract} = this.props.drizzleState.contracts;
+        const {showVoteCount} = this.props;
 
-        // using the saved `dataKey`, get the variable we're interested in
         const getProposalData = DeBordaVoteContract.getProposalData[this.state.dataKey];
 
-        if (getProposalData == null )
-        {
-         return(<p className="tab-title">Loading</p>);
+        if (getProposalData == null) {
+            return (<p className="tab-title">Loading...</p>);
         }
-        else
-        {
-            const value = getProposalData.value;
+
+        else {
+            const proposal = getProposalData.value;
             return (
-                <div onClick={() => this.props.onClick(value[0])}>
-                    <p className="p-selector">{value[1]}</p>
+                <div onClick={() => this.props.onClick(proposal["id"])}>
+                    <p className="p-selector">{proposal["name"]}</p>
+                    {
+                        showVoteCount && <p>Nombre de points : {proposal["voteCount"]}</p>
+                    }
                 </div>)
 
         }

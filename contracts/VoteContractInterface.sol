@@ -52,7 +52,11 @@ contract VoteContractInterface {
 
     // Accessible only if voter is enable to vote
     modifier mayVote(address voter) {
-        if (hasVoteStarted == false || voteEndTimestamp < now || voters[voter].voted || !voters[voter].canVote) return;
+        if (hasVoteStarted == false
+        || voteEndTimestamp < now
+        || voters[voter].voted
+        || !voters[voter].canVote
+        ) return;
         _;
     }
 

@@ -3,11 +3,11 @@ import React from "react";
 class NewElection extends React.Component {
     state = {
         dataKey: null,
-        input:  ''
+        input: ''
     };
 
     handleChange = e => {
-        this.setState({ input: e.target.value });
+        this.setState({input: e.target.value});
     };
 
     handleClick = () => {
@@ -39,13 +39,13 @@ class NewElection extends React.Component {
     };
 
     render() {
-       return (<div>
-           <p className="tab-title">Entrez votre nom pour vous inscrire à l'élection</p>
-            <input type="text" className="edit-text" onChange={ this.handleChange }/>
+        return (<div>
+            <p className="tab-title">Entrez votre nom pour vous inscrire à l'élection</p>
+            <input type="text" className="edit-text" onChange={this.handleChange}/>
             <input type="button" className="edit-button" value="Se présenter" onClick={() => this.handleClick()}/>
-           <div className="status"><p className="p-status">{this.getTxStatus()}</p></div>
+            <div className="status"><p className="p-status">{this.getTxStatus()}</p></div>
 
-       </div>)
+        </div>)
     }
 }
 

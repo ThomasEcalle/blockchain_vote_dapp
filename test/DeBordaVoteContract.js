@@ -12,8 +12,8 @@ contract("DeBordaVoteContract", accounts => {
         const myVoteContract = await DeBordaVoteContract.deployed();
 
         // Declare as candidate
-        await myVoteContract.candidateAsProposal("candice", {from: candice});
-        await myVoteContract.candidateAsProposal("tim", {from: timothee});
+        await myVoteContract.candidateAsProposal("billy8you", {from: candice});
+        await myVoteContract.candidateAsProposal("lozah", {from: timothee});
         await myVoteContract.candidateAsProposal("sanchyu", {from: thomas});
 
         // Get infos from candidate
