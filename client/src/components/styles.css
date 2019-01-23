@@ -30,6 +30,7 @@
     transition: 0.3s;
     background-color: lightblue;
     margin-bottom: 10px;
+    border-radius: 15px;
 }
 
 .card {
@@ -38,6 +39,8 @@
     transition: 0.3s;
     background-color: blanchedalmond;
     margin-bottom: 10px;
+    border-radius: 15px;
+
 }
 
 .cardContainer {
